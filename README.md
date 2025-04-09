@@ -1,5 +1,3 @@
-⣾  Loading⣽  Loading⣻  Loading⢿  Loading⡿  Loading⣟  Loading⣯  Loading⣷  Loading⣾  Loading          
-Here's a summary of the code in Markdown format:
 
 ```markdown
 # System Package Manager Toolkit (spmt)
@@ -58,4 +56,3 @@ The script supports various commands:
 
 Includes trap statements for SIGINT, SIGTERM, and ERR to ensure proper cleanup of temporary files in case of interruptions.
 ```
-
