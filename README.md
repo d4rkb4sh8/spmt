@@ -1,14 +1,12 @@
-
-```markdown
 # System Package Manager Toolkit (spmt)
 
 ## Overview
 
-This is a comprehensive system configuration management tool written in Bash. It provides functionality for backing up and restoring system configurations, including packages and desktop environments.
+This is a comprehensive LINUX  system configuration management tool written in Bash. It provides functionality for backing up and restoring system configurations, including packages and desktop environments.
 
 ## Key Features
 
-- Detects ytem distribution, package manager, and desktop environment
+- Detects distribution, package manager, and desktop environment
 - Backs up packages and desktop configurations
 - Restores backups
 - Lists available backups
@@ -32,18 +30,18 @@ The script supports various commands:
 
 ## Backup Process
 
-1. Detects ytem details
-2. Creates a backup directory with timestamp
-3. Backs up packages based on the detected package manager
-4. Backs up desktop-specific configurations
-5. Saves metadata about the backup
+1.  Detects ytem details
+2.  Creates a backup directory with timestamp
+3.  Backs up packages based on the detected package manager
+4.  Backs up desktop-specific configurations
+5.  Saves metadata about the backup
 
 ## Restore Process
 
-1. Loads metadata from the backup directory
-2. Detects ytem details again
-3. Restores packages based on the detected package manager
-4. Restores desktop-specific configurations
+1.  Loads metadata from the backup directory
+2.  Detects ytem details again
+3.  Restores packages based on the detected package manager
+4.  Restores desktop-specific configurations
 
 ## Additional Options
 
@@ -55,4 +53,3 @@ The script supports various commands:
 ## Error Handling
 
 Includes trap statements for SIGINT, SIGTERM, and ERR to ensure proper cleanup of temporary files in case of interruptions.
-```
