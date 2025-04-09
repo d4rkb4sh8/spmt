@@ -30,7 +30,7 @@ The script supports various commands:
 
 ## Backup Process
 
-1.  Detects ytem details
+1.  Detects item details
 2.  Creates a backup directory with timestamp
 3.  Backs up packages based on the detected package manager
 4.  Backs up desktop-specific configurations
@@ -39,7 +39,7 @@ The script supports various commands:
 ## Restore Process
 
 1.  Loads metadata from the backup directory
-2.  Detects ytem details again
+2.  Detects item details again
 3.  Restores packages based on the detected package manager
 4.  Restores desktop-specific configurations
 
