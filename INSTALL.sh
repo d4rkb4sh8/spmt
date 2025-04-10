@@ -1,5 +1,16 @@
 #!/usr/bin/env bash
 
+# Installation script for spmt
+INSTALL_DIR="$HOME/.local/bin"
+SCRIPT_NAME="spmt"
+
+# Create installation directory if it doesn't exist
+mkdir -p "$INSTALL_DIR"
+
+# Create the script file
+cat >"$INSTALL_DIR/$SCRIPT_NAME" <<'EOL'
+#!/usr/bin/env bash
+
 # System Package Manager Toolkit (spmt)
 # Version: 3.0
 # Author: d4rkb4sh8
@@ -114,9 +125,9 @@ detect_system() {
 backup_packages() {
     local backup_dir="$1/packages"
     mkdir -p "$backup_dir"
-    
+
     echo -e "${BLUE}Backing up system packages...${NC}"
-    
+
     # Native packages
     case $DEFAULT_PKG_MGR in
         apt) dpkg --get-selections > "$backup_dir/pkglist.txt" ;;
@@ -145,9 +156,9 @@ backup_packages() {
 backup_desktop() {
     local backup_dir="$1/desktop"
     mkdir -p "$backup_dir"
-    
+
     echo -e "${BLUE}Backing up desktop environment...${NC}"
-    
+
     # Desktop-specific configs
     case $DESKTOP_ENV in
         *gnome*)
@@ -169,9 +180,9 @@ backup_desktop() {
 
 restore_packages() {
     local restore_dir="$1/packages"
-    
+
     echo -e "${BLUE}Restoring packages...${NC}"
-    
+
     # Native packages
     case $DEFAULT_PKG_MGR in
         apt) sudo apt update && sudo dpkg --set-selections < "$restore_dir/pkglist.txt" && sudo apt-get -y dselect-upgrade ;;
@@ -200,9 +211,9 @@ restore_packages() {
 
 restore_desktop() {
     local restore_dir="$1/desktop"
-    
+
     echo -e "${BLUE}Restoring desktop environment...${NC}"
-    
+
     # Desktop-specific configs
     case $DESKTOP_ENV in
         *gnome*)
@@ -234,7 +245,7 @@ backup_system() {
 
     detect_system
     echo -e "${GREEN}Starting system backup...${NC}"
-    
+
     [ -z "$SCOPE" ] && SCOPE="full"
     case $SCOPE in
         "packages") backup_packages "$backup_dir" ;;
@@ -249,7 +260,7 @@ backup_system() {
     echo "DESKTOP_ENV=$DESKTOP_ENV" > "$backup_dir/meta.conf"
     echo "DISTRO=$DISTRO" >> "$backup_dir/meta.conf"
     echo "TIMESTAMP=$epoch_timestamp" >> "$backup_dir/meta.conf"
-    
+
     echo -e "${GREEN}Backup created: $backup_dir${NC}"
 }
 
@@ -266,7 +277,7 @@ restore_system() {
     detect_system
 
     echo -e "${GREEN}Starting system restore...${NC}"
-    
+
     [ -z "$SCOPE" ] && SCOPE="full"
     case $SCOPE in
         "packages") restore_packages "$restore_path" ;;
@@ -362,3 +373,22 @@ done
 
 # Default action if no options provided
 show_help
+EOL
+
+# Make executable
+chmod +x "$INSTALL_DIR/$SCRIPT_NAME"
+
+# Verify installation
+if [[ -f "$INSTALL_DIR/$SCRIPT_NAME" ]]; then
+  echo -e "\033[32mspmt installed successfully to $INSTALL_DIR/\033[0m"
+
+  # Check if in PATH
+  if [[ ":$PATH:" != *":$INSTALL_DIR:"* ]]; then
+    echo -e "\033[33mWarning: $INSTALL_DIR is not in your PATH!\033[0m"
+    echo "Add this to your shell config:"
+    echo "export PATH=\"\$HOME/.local/bin:\$PATH\""
+  fi
+else
+  echo -e "\033[31mInstallation failed!\033[0m"
+  exit 1
+fi
